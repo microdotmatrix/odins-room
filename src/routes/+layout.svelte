@@ -44,9 +44,11 @@
 		<slot />
 	</main>
 
-	<footer>
-		<p>Currently viewing: {data.pathname}</p>
-		<p>visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to learn SvelteKit</p>
+	<footer class="footer mt-12 text-neutral-content">
+		<div class="container py-12">
+			<p>built with <a href="https://svelte.dev">Svelte</a></p>
+			<p>visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to learn SvelteKit</p>
+		</div>
 	</footer>
 </div>
 
@@ -130,11 +132,8 @@
 	}
 
 	footer {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		padding: 12px;
+		background: var(--gradient-16);
+		background-attachment: fixed;
 	}
 
 	footer a {

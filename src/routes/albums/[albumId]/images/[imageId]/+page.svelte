@@ -107,7 +107,7 @@
         <span class="sr-only">Back to Album</span>
       </button>
       <div class="date" in:fade={{ duration: 400 }} out:fade={{ duration: 100 }}>
-        {#await fetchMetadata()}
+        <!-- {#await fetchMetadata()}
           <span class="loading loading-ring loading-lg"></span>
         {:then metadata}
           <p in:fly={{ x: 100, delay: 800, duration: 500 }} out:fade>{formatDate(metadata.createdAt)}</p>
@@ -119,7 +119,25 @@
               <img src={$meta.avatar} alt={$meta.credit} height="48" width="48" class="avatar" />
             </span>
           </div>
-        {/await}
+        {/await} -->
+
+        <h1 in:fly={{ x: 100, delay: 800, duration: 500 }} out:fade>{formatDate(image.createdAt)}</h1>
+        <div class="flex flex-row items-center gap-3 text-2xl font-sans" in:fly={{ y: 20, delay: 1200, duration: 300 }}>
+          Taken by: 
+          <span class="flex flex-row items-center gap-2" in:fade={{ delay: 1800 }}>
+            {#if image?.camera === "Apple"}
+              Dad
+              <div class="w-16 h-16 rounded-full overflow-hidden">
+                <img src={john} alt="Taken by Dad" height="48" width="48" class="w-full h-full object-cover" />
+              </div>
+            {:else}
+              Mom
+              <div class="w-16 h-16 rounded-full overflow-hidden">
+                <img src={hayley} alt="Taken by Dad" height="48" width="48" class="w-full h-full object-cover" />
+              </div>
+            {/if}
+          </span>
+        </div>
       </div>
     </div>
   </div>
