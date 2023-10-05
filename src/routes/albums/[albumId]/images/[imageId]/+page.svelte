@@ -14,52 +14,8 @@
   $: imageId = data.imageId
   $: ({ images } = data.images);
   $: image = images.find((/** @type {{ id: string | undefined; }} */ image) => image.id === imageId);
-  /**
-	 * @type {any}
-	 */
-  $: ({ metadata } = {});
-
-  async function fetchMetadata() {
-    const res = await fetch(`/api/images/${imageId}`)
-      .then(res => res.json())
-      
-      .catch(err => {
-        console.error(err);
-      }
-    );
-    return {
-      ...res,
-      photo: res.baseUrl,
-      createdAt: res.mediaMetadata?.creationTime,
-      camera: res.mediaMetadata?.photo?.cameraMake,
-    }
-  }
-
-  let meta = writable({
-    credit: '',
-    date: '',
-    avatar: ''
-  })
 
   const { transition } = setupViewTransition();
-
-  onMount(async () => {
-    metadata = await fetchMetadata();
-    if (metadata.camera === "Apple" || "LG") {
-      meta.set({
-        date: metadata.createdAt,
-        credit: "Dad",
-        avatar: john
-      })
-    } 
-    if (metadata.camera === "samsung" || undefined) {
-      meta.set({
-        date: metadata.createdAt,
-        credit: "Mom",
-        avatar: hayley
-      })
-    }
-  })
 </script>
 
 <div class="container">
@@ -107,20 +63,6 @@
         <span class="sr-only">Back to Album</span>
       </button>
       <div class="date" in:fade={{ duration: 400 }} out:fade={{ duration: 100 }}>
-        <!-- {#await fetchMetadata()}
-          <span class="loading loading-ring loading-lg"></span>
-        {:then metadata}
-          <p in:fly={{ x: 100, delay: 800, duration: 500 }} out:fade>{formatDate(metadata.createdAt)}</p>
-          <div class="flex flex-row items-center gap-4" in:fly={{ y: 20, delay: 1200, duration: 300 }}>
-            Taken by: 
-            <span class="flex flex-row items-center gap-1+
-            " in:fade={{ delay: 1800 }}>
-              {$meta.credit}
-              <img src={$meta.avatar} alt={$meta.credit} height="48" width="48" class="avatar" />
-            </span>
-          </div>
-        {/await} -->
-
         <h1 in:fly={{ x: 100, delay: 800, duration: 500 }} out:fade>{formatDate(image.createdAt)}</h1>
         <div class="flex flex-row items-center gap-3 text-2xl font-sans" in:fly={{ y: 20, delay: 1200, duration: 300 }}>
           Taken by: 
