@@ -7,11 +7,11 @@
 	import john from '$lib/images/john.jpg';
 	import hayley from '$lib/images/hayley.jpg';
 
-	const albumId = $page.params.albumId;
-
+	
 	export let data;
 	$: images = data.images;
-
+	$: albumId = data.albumId;
+	
 	let limit = writable(12);
 	$: pageSize = $page.url.searchParams.get('q');
 
@@ -63,7 +63,7 @@
 			{/each}
 		{:then { images }}
 			{#each images.slice(0, pageSize) as image (image.id)}
-				{@const href = `${data.pathname}/images/${image.id}`}
+				{@const href = `/albums/${albumId}/images/${image.id}`}
 				<div 
 					class="gallery-cell"
 					use:transition={{

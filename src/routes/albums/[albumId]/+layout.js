@@ -5,6 +5,7 @@ export const load = async ({ fetch, params }) => {
 	const { albumId } = params;
 
 	return {
-		images: await fetchImages({ fetch }, albumId)
+		images: await fetchImages({ fetch }, albumId),
+		albumId: params.albumId
 	};
 };
