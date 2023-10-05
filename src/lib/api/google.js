@@ -1,17 +1,17 @@
 // @ts-nocheck
 import {
-	PUBLIC_GOOGLE_CLIENT_ID,
-	PUBLIC_GOOGLE_CLIENT_SECRET,
-	PUBLIC_GOOGLE_REFRESH_TOKEN
-} from '$env/static/public';
+	GOOGLE_CLIENT_ID,
+	GOOGLE_CLIENT_SECRET,
+	GOOGLE_REFRESH_TOKEN
+} from '$env/static/private';
 
 export const getGoogleApiToken = async ({ fetch }) => {
 	const tokenResult = await fetch('https://www.googleapis.com/oauth2/v4/token', {
 		method: 'POST',
 		body: JSON.stringify({
-			client_id: PUBLIC_GOOGLE_CLIENT_ID,
-			client_secret: PUBLIC_GOOGLE_CLIENT_SECRET,
-			refresh_token: PUBLIC_GOOGLE_REFRESH_TOKEN,
+			client_id: GOOGLE_CLIENT_ID,
+			client_secret: GOOGLE_CLIENT_SECRET,
+			refresh_token: GOOGLE_REFRESH_TOKEN,
 			grant_type: 'refresh_token'
 		}),
 		headers: {
