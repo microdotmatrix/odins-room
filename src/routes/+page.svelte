@@ -43,9 +43,9 @@
 							<Login {form} />
 						{:else}
 							<p class="text-xl">Welcome back, <span class="font-bold">{data.session.user.email}</span></p>
-							<a href="/logout" class="btn btn-info w-fit">
+							<button formaction="/logout" class="btn btn-info w-fit">
 								Logout <Icon.Logout class="w-5 h-5" />
-							</a>
+							</button>
 						{/if}
 					</div>
 				</div>
