@@ -1,12 +1,13 @@
 import { AuthApiError } from '@supabase/supabase-js';
 import { fail } from '@sveltejs/kit';
 
+/** @type {import('./$types').Actions} */
 export const actions = {
 	async default({ request, url, locals: { supabase } }) {
 		const formData = await request.formData();
 
-		const email = formData.get('email') as string;
-		const password = formData.get('password') as string;
+		const email = formData.get('email')?.toString();
+		const password = formData.get('password')?.toString();
 
 		if (!email) {
 			return fail(400, {
