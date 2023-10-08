@@ -1,7 +1,10 @@
 <script>
   import { enhance, applyAction } from "$app/forms";
 
-  export let form;
+  /**
+	 * @type {{ values: { email: any; }; }}
+	 */
+   export let form;
   let loading = false;
 
   /** @type {import('./$types').SubmitFunction}*/
