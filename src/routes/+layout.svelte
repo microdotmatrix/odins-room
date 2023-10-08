@@ -78,7 +78,7 @@
 					</li>
 				{:else}
 					<li>
-						<form action="/logout/?/logout" method="post" use:enhance={handleSubmit}>
+						<form action="/logout" method="post" use:enhance={handleSubmit}>
 							<button type="submit" disabled={loading} class="lg:tooltip uppercase font-bold" data-tip="Logout">
 								<Icon.Logout class="login-icon" />
 							</button>
