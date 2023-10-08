@@ -1,12 +1,36 @@
 // @ts-nocheck
 import { error } from '@sveltejs/kit';
+import { browser } from '$app/environment';
 
-export const fetchAlbums = async ({ fetch }) => {
-	const response = await fetch(`/api/albums`);
+const cache = new Map();
+
+export const fetchAlbums = async ({ fetch, setHeaders }) => {
+	const url = '/api/albums';
+
+	if (cache.has(url)) {
+		return cache.get(url);
+	}
+
+	const response = await fetch(url);
+	
 	if (!response) {
 		throw error(500, 'Could not load albums');
 	}
+
+	const cacheControl = response.headers.cacheControl;
+
+	if (cacheControl) {
+		setHeaders({
+			'Cache-Control': cacheControl
+		});
+	}
+	
 	const albums = await response.json();
+
+	if (browser) {
+		cache.set(url, albums);
+	}
+
 	return {
 		albums: albums.map(
 			(
@@ -24,14 +48,33 @@ export const fetchAlbums = async ({ fetch }) => {
 	};
 };
 
-export const fetchImages = async ({ fetch }, albumId) => {
-	const response = await fetch(`/api/albums/${albumId}`);
+export const fetchImages = async ({ fetch, setHeaders }, albumId) => {
+	const url = `/api/images/${albumId}`;
+
+	if (cache.has(url)) {
+		return cache.get(url);
+	}
+
+	const response = await fetch(url);
 
 	if (!response) {
 		throw error(500, 'Could not load images');
 	}
 
+	const cacheControl = response.headers.cacheControl;
+
+	if (cacheControl) {
+		setHeaders({
+			'Cache-Control': cacheControl
+		});
+	}
+
 	const images = await response.json();
+
+	if (browser) {
+		cache.set(url, images);
+	}
+
 	return {
 		images: images.map((image) => {
 			return {
@@ -49,25 +92,30 @@ export const fetchImages = async ({ fetch }, albumId) => {
 	};
 };
 
-export const fetchImageById = async ({ fetch }, imageId) => {
-	const response = await fetch(`/api/images/${imageId}`);
+export const fetchAlbumMeta = async ({ fetch }, albumId) => {
+	const url = `/api/albums/${albumId}`;
 
-	if (!response) {
-		throw error(500, 'Could not load image');
+	if (cache.has(url)) {
+		return cache.get(url);
 	}
 
-	const image = await response.json();
+	const response = await fetch(url);
+
+	if (!response) {
+		throw error(500, 'Could not load images');
+	}
+
+	const album = await response.json();
+
+	if (browser) {
+		cache.set(url, album);
+	}
+
 	return {
-		image: {
-			...image,
-			id: image.id,
-			title: image.filename,
-			src: image.baseUrl,
-			width: image.mediaMetadata.width,
-			height: image.mediaMetadata.height,
-			createdAt: image.createdAt,
-			mimeType: image.mimeType,
-			camera: image.camera
-		}
-	};
-};
+		...album,
+		title: album.title,
+		coverPhoto: album.coverPhotoBaseUrl,
+		quantity: album.mediaItemsCount,
+		id: album.id
+	}
+}

@@ -1,54 +1,128 @@
 <script>
-	import { browser, dev } from '$app/environment';
-	import { page } from '$app/stores';
-	import { webVitals } from '$lib/vitals';
 	import '$styles/app.css';
-
 	import '@fontsource/amatic-sc';
-	import { ThemeSwitch } from '$components/theme';
+	import '@fontsource/quicksand';
 
-	import { onNavigate } from '$app/navigation';
+	import { browser, dev } from '$app/environment';
+	import { page, navigating } from '$app/stores';
+	import { webVitals } from '$lib/vitals';
 	import { setupViewTransition } from 'sveltekit-view-transition';
+	import { ThemeSwitch } from '$components/theme';
+	import { invalidate } from '$app/navigation';
+	import { onMount } from 'svelte';
+	import * as Icon from '$components/icons';
 
+	import { enhance, applyAction } from '$app/forms';
 
-	/** @type {import('./$types').LayoutServerData} */
-	export let data;
+		/** @type {import('./$types').LayoutData} */
+	export let data
 
+	/** @type {any} */
+	let { supabase, session } = data
+	$: ({ supabase, session } = data)
+
+	onMount(() => {
+		const { data } = supabase.auth.onAuthStateChange((/** @type {any} */ event, /** @type {{ expires_at: any; }} */ _session) => {
+			if (_session?.expires_at !== session?.expires_at) {
+				invalidate('supabase:auth')
+			}
+		})
+
+		return () => data.subscription.unsubscribe()
+	});
+
+	// @ts-ignore
 	$: if (!dev && browser && data?.analyticsId) {
 		webVitals({
 			path: $page.url.pathname,
 			params: $page.params,
+			// @ts-ignore
 			analyticsId: data.analyticsId
 		});
 	}
 
-	const { transition } = setupViewTransition();
+  let loading = false;
+
+	/** @type {import('./$types').SubmitFunction}*/
+  const handleSubmit = () => {
+		loading = true;
+		return async ({ result }) => {
+			await applyAction(result);
+			loading = false;
+		};
+	};
+
+	setupViewTransition();
 </script>
 
 <div class="app">
-	<header>
+	<header class="mt-0 w-fit self-end lg:mr-4 lg:mt-6">
+		{#if $navigating}
+			<div class="absolute top-14 -left-10 z-50 w-fit h-fit">
+				<span class="loading loading-ring loading-md"></span>
+			</div>
+		{/if}
 		<nav>
 			<ul>
 				<li aria-current={$page.url.pathname === '/'}>
-					<a href="/"> Home </a>
+					<a href="/">Home</a>
 				</li>
 				<li aria-current={$page.url.pathname.includes('/albums')}>
 					<a href="/albums">Albums</a>
 				</li>
+				{#if !session}
+					<li aria-current={$page.url.pathname.includes('/login')}>
+						<a href="/login" class="lg:tooltip uppercase font-bold" data-tip="Login">
+							<Icon.Login class="login-icon" />
+						</a>
+					</li>
+				{:else}
+					<li>
+						<form action="/logout/?/logout" method="post" use:enhance={handleSubmit}>
+							<button type="submit" disabled={loading} class="lg:tooltip uppercase font-bold" data-tip="Logout">
+								<Icon.Logout class="login-icon" />
+							</button>
+						</form>
+					</li>
+				{/if}
 			</ul>
 		</nav>
 		<ThemeSwitch />
 	</header>
 	
-	<main use:transition={'content'}>
+	<main>
 		<slot />
 	</main>
 
-	<footer class="footer mt-12 text-neutral-content">
-		<div class="container py-12">
-			<p>built with <a href="https://svelte.dev">Svelte</a></p>
-			<p>visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to learn SvelteKit</p>
-		</div>
+	<footer class="mt-12 text-neutral-content">
+		<section class="footer container pt-8 pb-12 px-6">
+			<aside class="space-y-3">
+				<h3>Created Using:</h3>
+				<span class="flex flex-row items-center gap-4">
+					<a href="https://kit.svelte.dev" class="lg:tooltip" data-tip="SvelteKit" target="_blank">
+						<Icon.SvelteKit />
+					</a> 
+					<span class="text-xl font-bold">+</span> 
+					<a href="https://photos.google.com" class="lg:tooltip" data-tip="Google Photos" target="_blank">
+						<Icon.GooglePhotos />
+					</a>
+				</span>
+				<p class="text-center">&copy;2023 John Polinski</p>
+			</aside> 
+			<nav>
+				<div class="grid grid-flow-col gap-4">
+					<a href="http://github.com/microdotmatrix/odins-room" class="lg:tooltip" data-tip="Github.com" target="_blank">
+						<Icon.Github />
+					</a> 
+					<a href="https://facebook.com/john.polinski.5811" class="lg:tooltip" data-tip="Facebook.com" target="_blank">
+						<Icon.Facebook />
+					</a> 
+					<a href="https://isomorphicdesign.com" class="lg:tooltip" data-tip="IsomorphicDesign.com" target="_blank">
+						<Icon.WebApp />
+					</a>
+				</div>
+			</nav>
+		</section>
 	</footer>
 </div>
 
@@ -67,12 +141,15 @@
 		position: sticky;
 		top: 0;
 		z-index: 40;
-		margin-top: 1.5rem;
 		padding: 1rem 1.5rem;
 		display: flex;
 		flex-direction: row;
 		justify-content: flex-end;
 		align-items: center;
+		& .login-icon {
+			font-size: var(--font-size-fluid-3);
+			margin-top: 4px;
+		}
 	}
 
 	nav > ul {
@@ -80,45 +157,55 @@
 		margin: 0;
 		padding: 0;
 		display: flex;
-	}
-
-	nav > ul > li {
-		position: relative;
-		display: inline-flex;
-		align-items: center;
-		z-index: 1;
-		text-align: center;
-		padding: var(--size-fluid-1) var(--size-fluid-2);
-		& a[href] {
-			text-decoration: none;
-			font-size: 1.5rem;
-			font-weight: 600;
-			letter-spacing: 0.25rem;
-			text-transform: uppercase;
-			transition: color 200ms ease;
-		}
-	}
-
-	nav > ul > li[aria-current='true'] {
-		color: var(--accent);
-	}
-
-	nav > ul > li[aria-current='true']::after {
-		position: absolute;
-		z-index: -1;
-		content: '';
-		left: 0.15rem;
-		top: 0.35rem;
-		width: 3rem;
-		height: 3rem;
-		opacity: 1;
-		background-color: var(--brand);
-		border-radius: 50%;
-		transition: transform 100ms ease-in;
-		view-transition-name: active-page;
-		@media (min-width: 768px) {
-			top: 0.25rem;
-			left: 0.5rem;
+		& li {
+			position: relative;
+			display: inline-flex;
+			align-items: center;
+			z-index: 1;
+			text-align: center;
+			padding: var(--size-fluid-1) var(--size-fluid-2);
+			@media (min-width: 768px) {
+				padding: var(--size-fluid-1) var(--size-fluid-3);
+			}
+			& a[href] {
+				position: relative;
+				z-index: 10;
+				text-decoration: none;
+				font-family: var(--font-amatic-sc);
+				font-size: var(--size-fluid-4);
+				font-weight: 600;
+				letter-spacing: 0.25rem;
+				text-transform: uppercase;
+				transition: color 200ms ease;
+			}
+			&[aria-current='true'] {
+				color: var(--accent);
+				&::after {
+					position: absolute;
+					z-index: -1;
+					content: '';
+					left: 0.35rem;
+					top: 0rem;
+					width: var(--size-fluid-5);
+					height: var(--size-fluid-5);
+					opacity: 1;
+					background: var(--gradient-17);
+					border-radius: 50%;
+					opacity: 0.35;
+					transition: opacity 400ms ease-in, box-shadow 500ms ease;
+					view-transition-name: active-page;
+					@media (min-width: 1024px) {
+						top: 0.75rem;
+						left: 0.5rem;
+						width: var(--size-fluid-5);
+						height: var(--size-fluid-5);
+					}
+				}
+				&:hover::after {
+					opacity: 0.7;
+					@apply shadow-lg shadow-gray-900/50;
+				}
+			}
 		}
 	}
 

@@ -1,12 +1,12 @@
 <script>
   import { page } from '$app/stores';
   import { formatDate } from '$utils/helpers';
-	import { onMount } from 'svelte';
-	import { writable } from 'svelte/store';
+	import * as Icon from '$components/icons';
   import { fade, fly } from 'svelte/transition';
   import john from '$lib/images/john.jpg';
   import hayley from '$lib/images/hayley.jpg';
 	import { setupViewTransition } from 'sveltekit-view-transition';
+	import LeftArrow from '$components/icons/left-arrow.svelte';
 
   /** @type {import('./$types').PageData} */
   export let data;
@@ -19,7 +19,7 @@
 </script>
 
 <div class="container">
-  <div class="view-wrapper flex flex-col lg:flex-row">
+  <div class="view-wrapper flex flex-col lg:flex-row bg-base-100">
     <figure class="image-view" use:transition={`wrapper`}>
       {#await data.images}
         <div class="w-full h-full m-auto grid place-content-center">
@@ -33,7 +33,6 @@
             muted
             class="object-contain object-center w-full h-full m-auto"
             style="max-height: 100vh"
-            
           >
             <source src={`${image.src}=dv` || null} type="video/mp4" />
             <track kind="captions" />
@@ -53,28 +52,34 @@
       {/await}
     </figure>
 
-    <div class="image-details">
+    <div class="image-details lg:justify-center">
       <button 
-        class="btn btn-secondary w-fit go-back" 
+        class="btn w-fit go-back px-1 absolute -mt-20 ml-0 lg:-mt-52 lg:-ml-12" 
         on:click={() => history.back()}
         in:fly={{ x: 100, delay: 500, duration: 300 }}
       >
-        Back
+        <Icon.LeftArrow class="w-10 h-10" />
         <span class="sr-only">Back to Album</span>
       </button>
-      <div class="date" in:fade={{ duration: 400 }} out:fade={{ duration: 100 }}>
-        <h1 in:fly={{ x: 100, delay: 800, duration: 500 }} out:fade>{formatDate(image.createdAt)}</h1>
-        <div class="flex flex-row items-center gap-3 text-2xl font-sans" in:fly={{ y: 20, delay: 1200, duration: 300 }}>
-          Taken by: 
+      <div class="pr-3 md:pr-6" in:fade={{ duration: 400 }} out:fade={{ duration: 100 }}>
+        <h1
+          in:fly={{ x: 100, delay: 800, duration: 500 }} 
+          out:fade
+          class="date"
+        >
+          {formatDate(image.createdAt)}
+        </h1>
+        <div class="flex flex-row items-center gap-5 credit" in:fly={{ y: 20, delay: 1200, duration: 300 }}>
+          <span>Taken by:</span>
           <span class="flex flex-row items-center gap-2" in:fade={{ delay: 1800 }}>
             {#if image?.camera === "Apple"}
-              Dad
-              <div class="w-16 h-16 rounded-full overflow-hidden">
+              <span class="font-bold">Dad</span>
+              <div class="w-20 h-20 rounded-full overflow-hidden border-[8px] border-neutral-content/25 dark:border-neutral-focus/25 shadow-lg shadow-neutral-focus/50 dark:shadow-base-300">
                 <img src={john} alt="Taken by Dad" height="48" width="48" class="w-full h-full object-cover" />
               </div>
             {:else}
-              Mom
-              <div class="w-16 h-16 rounded-full overflow-hidden">
+              <span class="font-bold">Mom</span>
+              <div class="w-20 h-20 rounded-full overflow-hidden border-[8px] border-neutral-content/25 dark:border-neutral-focus/25 shadow-lg shadow-neutral-focus/50 dark:shadow-base-300">
                 <img src={hayley} alt="Taken by Dad" height="48" width="48" class="w-full h-full object-cover" />
               </div>
             {/if}
@@ -101,19 +106,16 @@
     flex: 1 1 0;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     height: 100%;
     padding-left: var(--size-fluid-2);
+    padding-top: var(--size-fluid-2);
+    @media (min-width: 1024px) {
+      padding-top: 0;
+    }
   }
   .go-back {
     margin-bottom: 3vh;
   }
-  .avatar {
-    height: 48px;
-    width: 48px;
-    border-radius: 50%;
-  }
-
   .image-view {
 		flex: 1 1 0;
 		height: 100%;
@@ -125,4 +127,13 @@
 			object-position: center;
 		}
 	}
+  .date {
+    font-size: var(--size-fluid-5);
+  }
+  .credit {
+    font-size: var(--size-fluid-3);
+    @media (min-width: 1024px) {
+      font-size: var(--size-fluid-2);
+    }
+  }
 </style>

@@ -1,21 +1,21 @@
 <script>
-	import { writable } from 'svelte/store';
+	import { limit, gridRows } from '$lib/stores';
 	import { page } from '$app/stores';
-	import { afterNavigate, goto } from '$app/navigation';
-	import { fade } from 'svelte/transition';
+	import { goto } from '$app/navigation';
+	import { fade, fly } from 'svelte/transition';
 	import { setupViewTransition } from 'sveltekit-view-transition';
+	import { smoothload } from '$utils/load';
+	import * as Icon from '$components/icons';
 	import john from '$lib/images/john.jpg';
 	import hayley from '$lib/images/hayley.jpg';
-
 	
 	export let data;
-	$: images = data.images;
+	$: ({ images } = data.images);
 	$: albumId = data.albumId;
+	$: meta = data.meta;
 	
-	let limit = writable(12);
 	$: pageSize = $page.url.searchParams.get('q');
-
-	let gridRows = writable(4);
+	
 
 	const loadMore = () => {
 		limit.update((n) => n + 12);
@@ -47,72 +47,83 @@
 	const { transition } = setupViewTransition();
 </script>
 
+<svelte:head>
+	<title>{meta.title} - {meta.quantity} photos - Odin's Room</title>
+	<meta name="description" content="Svelte demo app" />
+</svelte:head>
+
 {#key $page.url.pathname}
+	<div class="absolute z-50 top-9 lg:top-[3.8rem] left-12 lg:left-[8vw] hidden md:flex items-center">
+		<button 
+			class="btn w-fit px-1 mr-4" 
+			on:click={() => goto('/albums')}
+			in:fly={{ x: 100, delay: 500, duration: 300 }}
+		>
+			<Icon.LeftArrow class="w-8 h-8" />
+			<span class="sr-only">Back to Albums</span>
+		</button>
+		<h2>{meta.title}</h2>
+		<span class="badge lg:text-lg ml-4 w-7 h-7 lg:h-10 lg:w-10 bg-accent dark:bg-primary">{meta.quantity}</span>
+	</div>
 	<div
-		class="gallery container"
+		class="gallery"
 		style:--grid-rows={$gridRows}
 		bind:this={container}
 		in:fade={{ duration: 300 }}
 		out:fade={{ duration: 300 }}
-	>
-		{#await data.images}
-			{#each Array(12) as _}
-				<div class="gallery-cell">
-					<span class="loading loading-ring loading-lg"></span>
-				</div>
-			{/each}
-		{:then { images }}
-			{#each images.slice(0, pageSize) as image (image.id)}
-				{@const href = `/albums/${albumId}/images/${image.id}`}
-				<div 
-					class="gallery-cell"
-					use:transition={{
-						name({ navigation }) {
-							return navigation?.from?.params?.imageId === image.id.toString() ? `image-${image.id}` : 'wrapper'
-						},
-						applyImmediately({ navigation }) {
-							return navigation?.from?.params?.imageId === image.id.toString()
-						},
-						shouldApply({ navigation }) {
-							return navigation?.to?.params?.imageId === image.id.toString()
-						}
-					}}
-				>
-					<a {href} class="relative group">
-            <img
-              src={`${image.src}`}
-              alt={image.title}
-              height={image.height}
-              width={image.width}
-              loading="lazy"
-            />
-						<div class="absolute top-2 right-2">
-							<span class="text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-								<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256"><path fill="currentColor" d="M222 104a6 6 0 0 1-12 0V54.49l-69.75 69.75a6 6 0 0 1-8.48-8.48L201.51 46H152a6 6 0 0 1 0-12h64a6 6 0 0 1 6 6Zm-38 26a6 6 0 0 0-6 6v72a2 2 0 0 1-2 2H48a2 2 0 0 1-2-2V80a2 2 0 0 1 2-2h72a6 6 0 0 0 0-12H48a14 14 0 0 0-14 14v128a14 14 0 0 0 14 14h128a14 14 0 0 0 14-14v-72a6 6 0 0 0-6-6Z"/></svg></span>
+	>	
+		{#each images.slice(0, pageSize) as image (image.id)}
+			{@const href = `/albums/${albumId}/images/${image.id}`}
+			<div 
+				class="gallery-cell"
+				use:transition={{
+					name({ navigation }) {
+						return navigation?.from?.params?.imageId === image.id.toString() ? `image-${image.id}` : 'wrapper'
+					},
+					applyImmediately({ navigation }) {
+						return navigation?.from?.params?.imageId === image.id.toString()
+					},
+					shouldApply({ navigation }) {
+						return navigation?.to?.params?.imageId === image.id.toString()
+					}
+				}}
+			>
+				<a {href} class="relative group gallery-image">
+					<img
+						src={`${image.src}`}
+						alt={image.title}
+						height={image.height}
+						width={image.width}
+						loading="lazy"
+						use:smoothload
+					/>
+					<div class="absolute top-2 right-2">
+						<span class="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+							<Icon.Expand class="text-neutral group-hover:text-primary transition-colors duration-300 delay-100" />
+							<span class="sr-only">Open Image</span>
+						</span>
+					</div>
+					<div class="absolute bottom-3 left-3 avatar" in:fade={{ delay: 1200, duration: 200 }} out:fade={{ duration: 100 }}>
+						<div class="w-10 opacity-85 group-hover:opacity-100 grayscale-[50%] group-hover:grayscale-0 rounded-full shadow-lg shadow-gray-950 ring ring-primary/20 hover:ring-accent/40 transition-all duration-500 ring-offset-base-100 ring-offset-2">
+							{#if image?.camera === "Apple"}
+								<img src={john} alt="Taken by Dad" height="48" width="48" use:smoothload />
+							{:else}
+								<img src={hayley} alt="Taken by Mom" height="48" width="48" use:smoothload />
+							{/if}
 						</div>
-						<div class="absolute bottom-3 left-3 avatar">
-							<div class="w-10 opacity-75 group-hover:opacity-100 grayscale-[50%] group-hover:grayscale-0 rounded-full shadow-lg shadow-gray-950 ring ring-primary/20 hover:ring-accent/40 transition-all duration-500 ring-offset-base-100 ring-offset-2">
-								{#if image?.camera === "Apple"}
-									<img src={john} alt="Taken by Dad" height="48" width="48" />
-								{:else}
-									<img src={hayley} alt="Taken by Dad" height="48" width="48" />
-								{/if}
-							</div>
-						</div>
-          </a>
-				</div>
-			{/each}
-			{#if $limit < images.length}
-				<button
-					class="btn btn-primary"
-					on:click={loadMore}
-				>
-					Load More
-				</button>
-			{/if}
-		{:catch error}
-			<p>Could not load images...</p>
-		{/await}
+					</div>
+				</a>
+			</div>
+		{/each}
+		{#if $limit < images.length}
+			<button
+				class="btn btn-lg btn-neutral tracking-wider"
+				on:click={loadMore}
+			>
+				Load More
+				<Icon.DownArrows class="w-6 h-6" />
+			</button>
+		{/if}
 	</div>
 {/key}
 
@@ -121,15 +132,16 @@
 		--grid-rows: 4;
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-		grid-template-rows: repeat(1, 220px);
-		grid-auto-rows: 1fr;
+		grid-template-rows: repeat(1, 420px);
+		grid-auto-rows: 1fr 1fr;
 		grid-auto-flow: dense;
-		grid-gap: 0.25rem;
+		grid-gap: 0.1rem;
 		padding: 0;
+		
 		@media (min-width: 1024px) {
-			grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-			grid-template-rows: repeat(var(--grid-rows), 300px);
-			grid-gap: 0.5rem;
+			grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+			grid-template-rows: repeat(var(--grid-rows), 320px);
+			grid-gap: 0.25rem;
 		}
 
 		& .loading {
@@ -140,19 +152,19 @@
 			grid-row: span 1;
 		}
 
-		& .gallery-cell {
-			grid-column: span 1;
-			grid-row: span 1;
-			position: relative;
+	}
+	.gallery .gallery-cell {
+		grid-column: span 1;
+		grid-row: span 1;
+		position: relative;
 
-      & a > img {
-        display: flex;
-        width: 100%;
-        height: 100%;
-        border-radius: 0;
-        object-fit: cover;
-        object-position: center;
-      }
+		& .gallery-image > img {
+			display: flex;
+			width: 100%;
+			height: 100%;
+			border-radius: 0;
+			object-fit: cover;
+			object-position: center;
 		}
 	}
 	.gallery .gallery-cell:nth-child(1) {
@@ -167,24 +179,5 @@
 	.gallery .gallery-cell:last-of-type {
 		grid-column: span 1;
 		grid-row: span 1;
-	}
-
-	.load-more {
-		display: flex;
-		width: fit-content;
-		height: fit-content;
-		margin: auto;
-		text-transform: uppercase;
-		font-size: 1.25rem;
-		padding: var(--size-fluid-1) var(--size-fluid-3);
-		background: var(--text-1);
-		color: var(--surface-3);
-		border-radius: var(--size-1);
-		border: none;
-		transition: color 200ms ease, background 400ms ease, box-shadow 400ms ease;
-		&:hover {
-			color: var(--surface-1);
-			background: var(--text-2);
-		}
 	}
 </style>

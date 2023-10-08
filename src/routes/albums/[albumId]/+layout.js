@@ -1,11 +1,12 @@
-import { fetchImages } from '$lib/api/query';
+import { fetchImages, fetchAlbumMeta } from '$lib/api/query';
 
 /** @type {import('./$types').LayoutLoad} */
-export const load = async ({ fetch, params }) => {
+export const load = async ({ fetch, params, setHeaders }) => {
 	const { albumId } = params;
 
 	return {
-		images: await fetchImages({ fetch }, albumId),
+		images: await fetchImages({ fetch, setHeaders }, albumId),
+		meta: await fetchAlbumMeta({ fetch }, albumId),
 		albumId: params.albumId
 	};
 };

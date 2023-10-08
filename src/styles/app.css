@@ -118,20 +118,20 @@
 	}
 }
 
-html {
-  overflow-x: hidden;
-  overflow-y: auto;
-  scrollbar-gutter: stable;
-}
-
 :root, [data-theme] > * {
   @apply transition-colors duration-200;
 }
 
 :root {
   --font-amatic-sc: "Amatic SC", sans-serif;
-  --font-londrina: "Londrina Solid", sans-serif;
+  --font-quicksand: "Quicksand", sans-serif;
   --font-urbanist: "Urbanist", sans-serif;
+}
+
+html {
+  overflow-x: hidden;
+  overflow-y: auto;
+  font-family: var(--font-quicksand);
 }
 
 @layer base {
