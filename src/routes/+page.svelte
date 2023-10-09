@@ -7,7 +7,7 @@
 	export let form;
 
 	$: ({ albums } = data.albums);
-	let idx = getRandomInt(1, 8);
+	let idx = getRandomInt(1, 12);
 
 	$: album = albums[idx];
 </script>
