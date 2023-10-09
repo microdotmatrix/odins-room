@@ -100,6 +100,7 @@
     width: 100%;
     max-width: calc(100% - var(--fluid-size-2));
     margin: auto;
+    z-index: 1000;
   }
   
   .image-details {

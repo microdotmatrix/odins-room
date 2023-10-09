@@ -10,21 +10,36 @@
 <div class="container">
 	<div class="album-grid">
 		{#if $page.data.session}
-		{#each albums.slice(1, albums.length) as album}
-			<a href="/albums/{album.id}?q=12" in:fade={{ duration: 200 }} out:fade={{ duration: 100 }}>
-				<div class="album-card shadow-xl shadow-gray-950/75">
-					<figure>
-						<img src={album.coverPhoto} alt={album.title} class="w-full h-full object-cover" use:smoothload />
-						<figcaption class="count absolute z-10 top-3 right-3 badge bg-accent p-3 h-10 w-10">
-							<span class="text-white dark:text-gray-900">{album.quantity}</span>
-						</figcaption>
-					</figure>
-					<div class="title rounded-lg border border-slate-100/30 dark:border-slate-700/30 bg-gray-100/40 dark:bg-gray-950/50 backdrop-blur-md shadow-lg shadow-zinc-900/50">
-						<h2>{album.title}</h2>
+			{#each albums.slice(0,1) as album}
+				<a href="/albums/{album.id}?q=12" in:fade={{ duration: 200 }} out:fade={{ duration: 100 }}>
+					<div class="album-card shadow-xl shadow-gray-950/75">
+						<figure>
+							<img src={album.coverPhoto} alt={album.title} class="w-full h-full object-cover" use:smoothload />
+							<figcaption class="count absolute z-10 top-3 right-3 badge bg-accent p-3 h-10 w-10">
+								<span class="text-white dark:text-gray-900">{album.quantity}</span>
+							</figcaption>
+						</figure>
+						<div class="title rounded-lg border border-slate-100/30 dark:border-slate-700/30 bg-gray-100/40 dark:bg-gray-950/50 backdrop-blur-md shadow-lg shadow-zinc-900/50">
+							<h2>{album.title}</h2>
+						</div>
 					</div>
-				</div>
-			</a>
-		{/each}
+				</a>
+			{/each}
+			{#each albums.slice(2, albums.length) as album}
+				<a href="/albums/{album.id}?q=12" in:fade={{ duration: 200 }} out:fade={{ duration: 100 }}>
+					<div class="album-card shadow-xl shadow-gray-950/75">
+						<figure>
+							<img src={album.coverPhoto} alt={album.title} class="w-full h-full object-cover" use:smoothload />
+							<figcaption class="count absolute z-10 top-3 right-3 badge bg-accent p-3 h-10 w-10">
+								<span class="text-white dark:text-gray-900">{album.quantity}</span>
+							</figcaption>
+						</figure>
+						<div class="title rounded-lg border border-slate-100/30 dark:border-slate-700/30 bg-gray-100/40 dark:bg-gray-950/50 backdrop-blur-md shadow-lg shadow-zinc-900/50">
+							<h2>{album.title}</h2>
+						</div>
+					</div>
+				</a>
+			{/each}
 		{:else}
 			Login to see photo albums
 		{/if}

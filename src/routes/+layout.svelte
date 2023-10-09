@@ -99,11 +99,11 @@
 			<aside class="space-y-3">
 				<h3>Created Using:</h3>
 				<span class="flex flex-row items-center gap-4">
-					<a href="https://kit.svelte.dev" class="lg:tooltip" data-tip="SvelteKit" target="_blank">
+					<a href="https://kit.svelte.dev" target="_blank">
 						<Icon.SvelteKit />
 					</a> 
 					<span class="text-xl font-bold">+</span> 
-					<a href="https://photos.google.com" class="lg:tooltip" data-tip="Google Photos" target="_blank">
+					<a href="https://photos.google.com" target="_blank">
 						<Icon.GooglePhotos />
 					</a>
 				</span>
@@ -111,13 +111,13 @@
 			</aside> 
 			<nav>
 				<div class="grid grid-flow-col gap-4">
-					<a href="http://github.com/microdotmatrix/odins-room" class="lg:tooltip" data-tip="Github.com" target="_blank">
+					<a href="http://github.com/microdotmatrix/odins-room" target="_blank">
 						<Icon.Github />
 					</a> 
-					<a href="https://facebook.com/john.polinski.5811" class="lg:tooltip" data-tip="Facebook.com" target="_blank">
+					<a href="https://facebook.com/john.polinski.5811" target="_blank">
 						<Icon.Facebook />
 					</a> 
-					<a href="https://isomorphicdesign.com" class="lg:tooltip" data-tip="IsomorphicDesign.com" target="_blank">
+					<a href="https://isomorphicdesign.com" target="_blank">
 						<Icon.WebApp />
 					</a>
 				</div>
