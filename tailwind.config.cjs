@@ -20,7 +20,7 @@ const config = {
 	},
   plugins: [require("daisyui")],
   daisyui: {
-    themes: ["light", "dark", "dracula", "business"],
+    themes: ["light", "dark"],
     darkTheme: "dark",
   }
 };

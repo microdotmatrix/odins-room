@@ -8,13 +8,15 @@ Our son was born September 15th, 2022, and like most new parents we have been sn
 
 ### Solutions Used:
 
-[SvelteKit](https://kit.svelte.dev)
-[Google Photos Api](https://photos.google.com)
-[Supabase](https://supabase.com)
-[Vercel](https://vercel.com)
+- [SvelteKit](https://kit.svelte.dev) - my new favorite Javascript meta-framework. This site uses a unique blend of client and server-side rendering, a normally challenging task which SvelteKit made insanely simple.
+- [Google Photos Api](https://photos.google.com) - possibly Google's least intuitive API, its no longer surprising to me that so few practical examples exist on Github of integrations built with Google Photos. 
+- [Supabase](https://supabase.com) - currently just using this for basic email/password user authentication - Supabase was the simplest solution I've found for implementing this without configuring an ORM like Prisma. Their admin dashboard UI is excellent, and has encouraged me to learn more about Postgres to utilize more of it. I've always been a MySQL guy, the last time I used a GUI based DB manager was phpMyAdmin... if you've used this before, you already know how impressive Supabase's admin is by comparison. Admittedly, I've been out of touch with database integrations for a while... but with everything happening with server rendering/components, serverless/edge functions, etc. I'm getting pulled back in.
+- [Vercel](https://vercel.com) - thanks for the free hosting, lets see how this thing runs.
 
 ## Form & Function
 
-[Svelte](https://svelte.dev)
-[TailwindCSS](https://tailwindcss.com)
-[DaisyUI](https://daisyui.com)
+- [Svelte](https://svelte.dev)
+- [TailwindCSS](https://tailwindcss.com)
+- [DaisyUI](https://daisyui.com)
+- [PostCSS](https://postcss.org)
+- [Node.js v18](https://nodejs.org)
