@@ -1,12 +1,10 @@
 <script>
-  import { page } from '$app/stores';
   import { formatDate } from '$utils/helpers';
 	import * as Icon from '$components/icons';
   import { fade, fly } from 'svelte/transition';
   import john from '$lib/images/john.jpg';
   import hayley from '$lib/images/hayley.jpg';
 	import { setupViewTransition } from 'sveltekit-view-transition';
-	import LeftArrow from '$components/icons/left-arrow.svelte';
 
   /** @type {import('./$types').PageData} */
   export let data;
@@ -21,35 +19,25 @@
 <div class="container">
   <div class="view-wrapper flex flex-col lg:flex-row bg-base-100">
     <figure class="image-view" use:transition={`wrapper`}>
-      {#await data.images}
-        <div class="w-full h-full m-auto grid place-content-center">
-          <span class="loading loading-ring loading-lg"></span>
-        </div>
-      {:then { images }}
-        {#if image.mimeType === 'video/mp4'}
-          <video
-            controls
-            autoPlay
-            muted
-            class="object-contain object-center w-full h-full m-auto"
-            style="max-height: 100vh"
-          >
-            <source src={`${image.src}=dv` || null} type="video/mp4" />
-            <track kind="captions" />
-          </video>
-        {:else}
-          <img 
-            src="{image.src}" 
-            alt={image.title} 
-            height={image.height} 
-            width={image.width} 
-            loading="eager"
-            
-          />
-        {/if}
-      {:catch error}
-        <p>Could not load image...</p>
-      {/await}
+      {#if image.mimeType === 'video/mp4'}
+        <video
+          controls
+          autoPlay
+          muted
+          style="max-height: 100vh"
+        >
+          <source src={`${image.src}=dv` || null} type="video/mp4" />
+          <track kind="captions" />
+        </video>
+      {:else}
+        <img 
+          src="{image.src}" 
+          alt={image.title} 
+          height={image.height} 
+          width={image.width} 
+          loading="eager"
+        />
+      {/if}
     </figure>
 
     <div class="image-details lg:justify-center">
@@ -121,7 +109,7 @@
 		flex: 1 1 0;
 		height: 100%;
 		margin: 0;
-		& img {
+		& img, & video {
 			height: 100%;
 			width: 100%;
 			object-fit: contain;

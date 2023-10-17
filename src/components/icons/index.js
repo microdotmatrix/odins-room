@@ -1,3 +1,4 @@
+export { default as Codepen } from './codepen.svelte';
 export { default as Day } from './day.svelte';
 export { default as DownArrows } from './down-arrows.svelte';
 export { default as Expand } from './expand.svelte';

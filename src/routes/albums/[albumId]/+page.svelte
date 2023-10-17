@@ -16,14 +16,13 @@
 	
 	$: pageSize = $page.url.searchParams.get('q');
 	
-
 	const loadMore = () => {
 		limit.update((n) => n + 12);
 		goto(`?q=${$limit}`, {
 			replaceState: false,
 			noScroll: true
 		});
-		gridRows.update((n) => n + 3);
+		gridRows.update((n) => n + 2);
 	};
 
 	/** @type { HTMLElement}  */
@@ -32,9 +31,6 @@
 	/** @type {import('./$types').Snapshot} */
 	export const snapshot = {
 		capture: () => {
-			// we need to manually restore the scroll of the parent element
-			// SvelteKit won't, because it's not the window scroll
-			// TODO: is this better in an afterNavigate/afterTransition?
 			return container.parentElement?.scrollTop;
 		},
 		restore: (scrollTop) => {
@@ -67,7 +63,7 @@
 	</div>
 	<div
 		class="gallery"
-		style:--grid-rows={$gridRows}
+		
 		bind:this={container}
 		in:fade={{ duration: 300 }}
 		out:fade={{ duration: 300 }}
@@ -128,7 +124,7 @@
 {/key}
 
 <style>
-	.gallery {
+	/* .gallery {
 		--grid-rows: 4;
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -175,9 +171,41 @@
 		grid-column: span 2;
 		grid-row: span 2;
 	}
-
 	.gallery .gallery-cell:last-of-type {
 		grid-column: span 1;
 		grid-row: span 1;
+	} */
+	.gallery {
+		--gap: 2px;
+		columns: 2;
+		column-gap: var(--gap);
+		& > * {
+			margin-bottom: var(--gap);
+			& .gallery-image {
+				& img {
+					display: flex;
+					width: 100%;
+					height: 100%;
+					border-radius: 0;
+					border-radius: 0;
+					object-fit: cover;
+					object-position: center;
+				}
+			}
+		}
+		@media (min-width: 768px) {
+			columns: 3;
+		}
+		@media (min-width: 1024px) {
+			--gap: 4px;
+			columns: 4;
+		}
+		@media (min-width: 1280px) {
+			columns: 5;
+		}
+		@media (min-width: 1536px) {
+			--gap: 0.25rem;
+			columns: 6;
+		}
 	}
 </style>

@@ -43,9 +43,9 @@
 
   let loading = false;
 
-	/** @type {import('./$types').SubmitFunction}*/
   const handleSubmit = () => {
 		loading = true;
+		// @ts-ignore
 		return async ({ result }) => {
 			await applyAction(result);
 			loading = false;
@@ -69,6 +69,9 @@
 				</li>
 				<li aria-current={$page.url.pathname.includes('/albums')}>
 					<a href="/albums">Albums</a>
+				</li>
+				<li aria-current={$page.url.pathname.includes('/about')}>
+					<a href="/about">About</a>
 				</li>
 				{#if !session}
 					<li aria-current={$page.url.pathname.includes('/login')}>
@@ -109,11 +112,14 @@
 				</span>
 				<p class="text-center">&copy;2023 John Polinski</p>
 			</aside> 
-			<nav>
+			<nav class="justify-self-center lg:justify-self-end">
 				<div class="grid grid-flow-col gap-4">
-					<a href="http://github.com/microdotmatrix/odins-room" target="_blank">
+					<a href="https://github.com/microdotmatrix/odins-room" target="_blank">
 						<Icon.Github />
 					</a> 
+					<a href="https://codepen.io/mrselfdestruct" target="_blank">
+						<Icon.Codepen />
+					</a>
 					<a href="https://facebook.com/john.polinski.5811" target="_blank">
 						<Icon.Facebook />
 					</a> 
@@ -163,7 +169,7 @@
 			align-items: center;
 			z-index: 1;
 			text-align: center;
-			padding: var(--size-fluid-1) var(--size-fluid-2);
+			padding: var(--size-fluid-1) 2vw;
 			@media (min-width: 768px) {
 				padding: var(--size-fluid-1) var(--size-fluid-3);
 			}
@@ -172,11 +178,25 @@
 				z-index: 10;
 				text-decoration: none;
 				font-family: var(--font-amatic-sc);
-				font-size: var(--size-fluid-4);
+				font-size: clamp(1.75rem, 4vw, 2.5rem);
 				font-weight: 600;
 				letter-spacing: 0.25rem;
 				text-transform: uppercase;
 				transition: color 200ms ease;
+				&::after {
+					content: "";
+					width: 4px;
+					height: 4px;
+					border-radius: 50%;
+					background: currentColor;
+					position: absolute;
+					right: -1.25vw;
+					top: 45%;
+					@media (min-width: 1024px) {
+						width: 8px;
+						height: 8px;
+					}
+				}
 			}
 			&[aria-current='true'] {
 				color: var(--accent);
@@ -184,7 +204,7 @@
 					position: absolute;
 					z-index: -1;
 					content: '';
-					left: 0.35rem;
+					left: 1rem;
 					top: 0rem;
 					width: var(--size-fluid-5);
 					height: var(--size-fluid-5);

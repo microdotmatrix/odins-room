@@ -151,4 +151,19 @@ html {
   h4 {
     font-size: var(--font-size-fluid-0);
   }
+  a[href] {
+    color: theme(colors.neutral);
+    transition: color 200ms ease;
+    &:hover {
+      color: theme(colors.accent);
+    }
+  }
+  [data-theme="dark"] {
+    a[href] {
+      color: theme(colors.neutral-content);
+      &:hover {
+        color: theme(colors.info);
+      }
+    }
+  }
 }

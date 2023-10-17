@@ -1,10 +1,11 @@
 <script>
+// @ts-nocheck
+
 	import { getRandomInt } from '$utils/helpers';
 	import { Login } from '$components/forms';
 	import * as Icon from '$components/icons';
 
-	export let data;
-	export let form;
+	export let data, form;
 
 	$: ({ albums } = data.albums);
 	let idx = getRandomInt(1, 12);
@@ -21,7 +22,7 @@
 	<div class="py-6 sm:py-8 lg:py-12">
 		<div class="mx-auto max-w-screen-xl">
 			<div
-				class="flex flex-col overflow-hidden rounded-lg bg-neutral-content/75 dark:bg-neutral/75 sm:flex-row md:h-[70vh]"
+				class="flex flex-col overflow-hidden rounded-lg bg-neutral-content/75 dark:bg-neutral/75 sm:flex-row md:h-[70vh] md:max-h-[38rem]"
 			>
 				<div class="order-first h-80 w-full bg-gray-300 sm:order-none sm:h-auto sm:w-1/2 lg:w-2/3">
 					<img
@@ -35,15 +36,16 @@
 					<h1 class="mb-4 tracking-wider">Odin's Room</h1>
 
 					<p class="text-lg tracking-wide text-base-content">
-						Welcome to Odin's Room. I'm <span class="font-bold">John</span>, aka "Dad". This website is a special project I made in order to share photos of my son, <span class="font-bold">Odin</span>, with friends and family.
+						Welcome to Odin's Room. I'm <a href="https://github.com/microdotmatrix" class="font-bold" target="_blank">John</a>, aka "Dad". This website is a special project I made in order to share photos of my son, <span class="font-bold">Odin</span>, with friends and family.
 					</p>
 
 					<div class="my-auto space-y-8">
 						{#if !data.session}
 							<Login {form} />
 						{:else}
-							<p class="text-xl">Welcome back, <span class="font-bold">{data.session.user.email}</span></p>
-							<button formaction="/logout" class="btn btn-info w-fit">
+							<p class="text-xl">Welcome back, <span class="font-bold">{data.session?.user?.email}</span></p>
+							<p>If you're reading this, you're logged in and can view all of Odin's photos on the <a class="font-semibold" href="/albums">albums</a> page.</p>
+							<button formaction="/logout" class="btn w-fit">
 								Logout <Icon.Logout class="w-5 h-5" />
 							</button>
 						{/if}

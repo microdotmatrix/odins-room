@@ -7,9 +7,9 @@
    export let form;
   let loading = false;
 
-  /** @type {import('./$types').SubmitFunction}*/
   const handleSubmit = () => {
 		loading = true;
+		// @ts-ignore
 		return async ({ result }) => {
 			await applyAction(result);
 			loading = false;
