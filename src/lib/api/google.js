@@ -2,7 +2,6 @@
 import {
 	GOOGLE_CLIENT_ID,
 	GOOGLE_CLIENT_SECRET,
-	GOOGLE_REFRESH_TOKEN
 } from '$env/static/private';
 
 export const getGoogleApiToken = async ({ fetch }) => {
@@ -11,7 +10,7 @@ export const getGoogleApiToken = async ({ fetch }) => {
 		body: JSON.stringify({
 			client_id: GOOGLE_CLIENT_ID,
 			client_secret: GOOGLE_CLIENT_SECRET,
-			refresh_token: GOOGLE_REFRESH_TOKEN,
+			refresh_token: '1//04l1yomOVvzNfCgYIARAAGAQSNwF-L9Ir_PAD16oiatn_HEfJO5PjeN3OvB48yxCSHSoo3MLOrfH0sBQpkUKKkSMmgZ5BlK0dvNo',
 			grant_type: 'refresh_token'
 		}),
 		headers: {
