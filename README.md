@@ -1,36 +1,20 @@
-# SvelteKit Demo app
+# About Odin's Room
 
-The official demo app for SvelteKit, hosted on Vercel.
+Odin's Room is a website created using SvelteKit that utilizes Google Photos. I designed this website because I'm too busy, forgetful and easily distracted to keep up with sending all of the photos taken of my son by myself and his mother to our family by text or email... and as an aspiring web developer, I was excited by the challenge of coding a unique solution to improve my skills.
 
-## Deploy Your Own
+## The Challenge:
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fvercel%2Ftree%2Fmain%2Fexamples%2Fsveltekit-1&project-name=sveltekit-vercel&repository-name=sveltekit-vercel&demo-title=SvelteKit%20%2B%20Vercel&demo-url=https%3A%2F%2Fsveltekit-template.vercel.app%2F)
+Our son was born September 15th, 2022, and like most new parents we have been snapping photos of him constantly. Both of us have Google Photos accounts that automatically backup and index our photos and videos, and to make sharing these photos with each other easier, we created a shared album accessible from either account that we could both contribute photos of Odin to. This was convenient for us, but not so much for our family. It was tricky to keep up with who sent which photos to grandma, who sent which ones to grandpa, and weeks or months would go by with both of us forgetting to send photos to anyone; we didn't want to simply invite everyone to the shared album we had, and not everyone in our family has a Google account or knows how to use Google Photos.
 
-_Live Example: https://sveltekit-template.vercel.app_
+### Solutions Used:
 
-## Developing
+[SvelteKit](https://kit.svelte.dev)
+[Google Photos Api](https://photos.google.com)
+[Supabase](https://supabase.com)
+[Vercel](https://vercel.com)
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+## Form & Function
 
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-## Speed Insights
-
-Once deployed on Vercel, you can benefit from [Speed Insights](https://vercel.com/docs/concepts/speed-insights) simply by navigating to Vercel's dashboard, clicking on the 'Speed Insights' tab, and enabling the product.
-
-You will get data once your application will be re-deployed and will receive visitors.
+[Svelte](https://svelte.dev)
+[TailwindCSS](https://tailwindcss.com)
+[DaisyUI](https://daisyui.com)

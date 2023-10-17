@@ -10,9 +10,8 @@ export const handle = async ({ event, resolve }) => {
 	})
 
 	/**
-	 * a little helper that is written for convenience so that instead
-	 * of calling `const { data: { session } } = await supabase.auth.getSession()`
-	 * you just call this `await getSession()`
+	 * Start Supabase authentication session and assign it to
+	 * event locals so we can access it in our routes
 	 */
 	event.locals.getSession = async () => {
 		const {
@@ -22,11 +21,6 @@ export const handle = async ({ event, resolve }) => {
 	}
 
 	return resolve(event, {
-		/**
-		 * There´s an issue with `filterSerializedResponseHeaders` not working when using `sequence`
-		 *
-		 * https://github.com/sveltejs/kit/issues/8061
-		 */
 		filterSerializedResponseHeaders(name) {
 			return name === 'content-range'
 		}
@@ -35,6 +29,11 @@ export const handle = async ({ event, resolve }) => {
 
 /** @type {import("@sveltejs/kit").HandleFetch} */
 export async function handleFetch({ request, fetch }) {
+	/**
+	 * To make it easier to authenticate requests to the Google Photos API
+	 * instead of passing the bearer token with every request, we can use SvelteKit's
+	 * handleFetch hook to add the token to any fetch request made to the API endpoint url
+	 */
 	const bearerToken = await getGoogleApiToken({ fetch });
 	
 	if (request.url.startsWith('https://photoslibrary.googleapis.com/')) {

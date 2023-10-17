@@ -2,8 +2,16 @@
 import { error } from '@sveltejs/kit';
 import { browser } from '$app/environment';
 
+/**
+ * Creating a basic cache object using the Map constructor to
+ * cache API responses in client-side virtual memory.
+ */
 const cache = new Map();
 
+/**
+ * Function for fetching albums from the local server-side API route configured to
+ * request remote data from Google's Photos API.
+ */
 export const fetchAlbums = async ({ fetch, setHeaders }) => {
 	const url = '/api/albums';
 
@@ -48,6 +56,11 @@ export const fetchAlbums = async ({ fetch, setHeaders }) => {
 	};
 };
 
+/**
+ * Function for fetching all images within an album from the local 
+ * server-side API route configured to request remote data from Google's Photos API.
+ * Takes an albumId arg from the route parameters.
+ */
 export const fetchImages = async ({ fetch, setHeaders }, albumId) => {
 	const url = `/api/images/${albumId}`;
 
@@ -92,6 +105,14 @@ export const fetchImages = async ({ fetch, setHeaders }, albumId) => {
 	};
 };
 
+/**
+ * Function for fetching album metadata from the local
+ * server-side API route configured to request remote data from Google's Photos API.
+ * Takes an albumId arg from the route parameters.
+ * @param {*} param0 
+ * @param {*} albumId 
+ * @returns 
+ */
 export const fetchAlbumMeta = async ({ fetch }, albumId) => {
 	const url = `/api/albums/${albumId}`;
 

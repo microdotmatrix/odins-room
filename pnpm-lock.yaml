@@ -1,34 +1,22 @@
-lockfileVersion: '6.1'
+lockfileVersion: '6.0'
 
 settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
 dependencies:
-  '@auth/core':
-    specifier: ^0.16.1
-    version: 0.16.1
-  '@auth/sveltekit':
-    specifier: ^0.3.9
-    version: 0.3.9(@sveltejs/kit@1.25.1)(svelte@4.2.1)
   '@fontsource/amatic-sc':
     specifier: ^5.0.14
     version: 5.0.14
   '@fontsource/quicksand':
     specifier: ^5.0.12
     version: 5.0.12
-  '@lucia-auth/adapter-session-redis':
-    specifier: ^2.1.1
-    version: 2.1.1(@upstash/redis@1.22.1)(lucia@2.7.1)
   '@supabase/auth-helpers-sveltekit':
     specifier: ^0.10.3
     version: 0.10.3(@supabase/supabase-js@2.38.0)(@sveltejs/kit@1.25.1)
   '@supabase/supabase-js':
     specifier: ^2.38.0
     version: 2.38.0
-  '@upstash/redis':
-    specifier: ^1.22.1
-    version: 1.22.1
   svelte-legos:
     specifier: ^0.2.2
     version: 0.2.2(svelte@4.2.1)
@@ -55,9 +43,6 @@ devDependencies:
   '@sveltejs/kit':
     specifier: ^1.25.1
     version: 1.25.1(svelte@4.2.1)(vite@4.3.8)
-  '@types/better-sqlite3':
-    specifier: ^7.6.5
-    version: 7.6.5
   '@types/cookie':
     specifier: ^0.5.1
     version: 0.5.1
@@ -129,35 +114,6 @@ packages:
     dependencies:
       '@jridgewell/gen-mapping': 0.3.3
       '@jridgewell/trace-mapping': 0.3.18
-
-  /@auth/core@0.16.1:
-    resolution: {integrity: sha512-V+YifnjpyOadiiTbxfYDV2xYWo8xpKNtwYVskAEKUSwMvE0FlSlP+10QGBpf0axS/AJFOO61IR6GncFF/IOrHQ==}
-    peerDependencies:
-      nodemailer: ^6.8.0
-    peerDependenciesMeta:
-      nodemailer:
-        optional: true
-    dependencies:
-      '@panva/hkdf': 1.1.1
-      cookie: 0.5.0
-      jose: 4.15.2
-      oauth4webapi: 2.3.0
-      preact: 10.11.3
-      preact-render-to-string: 5.2.3(preact@10.11.3)
-    dev: false
-
-  /@auth/sveltekit@0.3.9(@sveltejs/kit@1.25.1)(svelte@4.2.1):
-    resolution: {integrity: sha512-ZcnQVVYzERbtVHl5v7/GTrdqDwYOjIQkjnBss79KHQMunNwJNp6lGXlBHWkQxnmiav4yvEufoFbXTkB5FPvVkQ==}
-    peerDependencies:
-      '@sveltejs/kit': ^1.0.0
-      svelte: ^3.54.0 || ^4.0.0
-    dependencies:
-      '@auth/core': 0.16.1
-      '@sveltejs/kit': 1.25.1(svelte@4.2.1)(vite@4.3.8)
-      svelte: 4.2.1
-    transitivePeerDependencies:
-      - nodemailer
-    dev: false
 
   /@esbuild/android-arm64@0.17.19:
     resolution: {integrity: sha512-KBMWvEZooR7+kzY0BtbTQn0OAYY7CsiydT63pVEaPtVYF0hXbUaOyZog37DKxK7NF3XacBJOpYT4adIJh+avxA==}
@@ -634,25 +590,6 @@ packages:
       '@jridgewell/resolve-uri': 3.1.0
       '@jridgewell/sourcemap-codec': 1.4.14
 
-  /@lucia-auth/adapter-session-redis@2.1.1(@upstash/redis@1.22.1)(lucia@2.7.1):
-    resolution: {integrity: sha512-RWZRr02nzCM7AxUpC9J/k4hbwdlltuMD7HV7MN98WhF2nF1WV7iF+QjWx2v52J4mDN1UyyIKeXR9TKgtM95rMQ==}
-    peerDependencies:
-      '@upstash/redis': ^1.20.0
-      ioredis: ^5.0.0
-      lucia: ^2.0.0
-      redis: ^4.0.0
-    peerDependenciesMeta:
-      '@upstash/redis':
-        optional: true
-      ioredis:
-        optional: true
-      redis:
-        optional: true
-    dependencies:
-      '@upstash/redis': 1.22.1
-      lucia: 2.7.1
-    dev: false
-
   /@mapbox/node-pre-gyp@1.0.10:
     resolution: {integrity: sha512-4ySo4CjzStuprMwk35H5pPbkymjv1SF3jGLj6rAHp/xT/RF7TL7bd9CTm1xDY49K2qF7jmR/g7k+SkLETP6opA==}
     hasBin: true
@@ -695,10 +632,6 @@ packages:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.15.0
     dev: true
-
-  /@panva/hkdf@1.1.1:
-    resolution: {integrity: sha512-dhPeilub1NuIG0X5Kvhh9lH4iW3ZsHlnzwgwbOlgwQ2wG1IqFzsgHqmKPk3WzsdWAeaxKJxgM0+W433RmN45GA==}
-    dev: false
 
   /@playwright/test@1.34.0:
     resolution: {integrity: sha512-GIALJVODOIrMflLV54H3Cow635OfrTwOu24ZTDyKC66uchtFX2NcCRq83cLdakMjZKYK78lODNLQSYBj2OgaTw==}
@@ -871,12 +804,6 @@ packages:
     transitivePeerDependencies:
       - supports-color
 
-  /@types/better-sqlite3@7.6.5:
-    resolution: {integrity: sha512-H3ZUx89KiPhYa9nalUXVVStSUFHuzYxt4yoazufpTTYW9rVUCzhh02V8CH2C8nE4libnK0UgFq5DFIe0DOhqow==}
-    dependencies:
-      '@types/node': 20.2.3
-    dev: true
-
   /@types/chai-subset@1.3.3:
     resolution: {integrity: sha512-frBecisrNGz+F4T6bcc+NLeolfiojh5FxW2klu669+8BARtyQv2C/GkNW6FUodVe4BroGMP/wER/YDGc7rEllw==}
     dependencies:
@@ -908,14 +835,6 @@ packages:
     resolution: {integrity: sha512-62Omr8U0PO+hgjLCpPnMsmjh2/FRwIGOktZHyYAUzooEJotwkXHMp7vCacdYi8haxBNOiw9bc2HIHI+b/MPNjA==}
     dependencies:
       '@types/node': 20.2.3
-    dev: false
-
-  /@upstash/redis@1.22.1:
-    resolution: {integrity: sha512-7ec2eCMkVxZzuHNb+hPKonX4b/Pu0BdDeSBsEy+jKIqiweXzCs5Dpu9642vJgf57YnEsfwgXnQMVEataarvyeQ==}
-    dependencies:
-      isomorphic-fetch: 3.0.0
-    transitivePeerDependencies:
-      - encoding
     dev: false
 
   /@vercel/nft@0.23.1:
@@ -1874,15 +1793,6 @@ packages:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
     dev: true
 
-  /isomorphic-fetch@3.0.0:
-    resolution: {integrity: sha512-qvUtwJ3j6qwsF3jLxkZ72qCgjMysPzDfeV240JHiGZsANBYd+EEuu35v7dfrJ9Up0Ak07D7GGSkGhCHTqg/5wA==}
-    dependencies:
-      node-fetch: 2.6.11
-      whatwg-fetch: 3.6.19
-    transitivePeerDependencies:
-      - encoding
-    dev: false
-
   /jiti@1.20.0:
     resolution: {integrity: sha512-3TV69ZbrvV6U5DfQimop50jE9Dl6J8O1ja1dvBbMba/sZ3YBEQqJ2VZRoQPVnhlzjNtU1vaXRZVrVjU4qtm8yA==}
     hasBin: true
@@ -1963,10 +1873,6 @@ packages:
     dependencies:
       yallist: 4.0.0
     dev: true
-
-  /lucia@2.7.1:
-    resolution: {integrity: sha512-EHDTajS1YWA7Q37jd29Far1l4nfZgsWLp4hDQeaQhVpJd2WKQqA3626kJYmOj1CTweVMkE54xFi5JIph+agZkQ==}
-    dev: false
 
   /magic-string@0.27.0:
     resolution: {integrity: sha512-8UnnX2PeRAPZuN12svgR9j7M1uWMovg/CEnIwIG0LFkXSJJe4PdfUGiTGl8V9bsBHFUtfVINcSyYxd7q+kx9fA==}
@@ -2109,6 +2015,7 @@ packages:
         optional: true
     dependencies:
       whatwg-url: 5.0.0
+    dev: true
 
   /node-gyp-build@4.6.0:
     resolution: {integrity: sha512-NTZVKn9IylLwUzaKjkas1e4u2DLNcV4rdYagA4PWdPwW87Bi7z+BznyKSRwS/761tV/lzCGXplWsiaMjLqP2zQ==}
@@ -2144,10 +2051,6 @@ packages:
       gauge: 3.0.2
       set-blocking: 2.0.0
     dev: true
-
-  /oauth4webapi@2.3.0:
-    resolution: {integrity: sha512-JGkb5doGrwzVDuHwgrR4nHJayzN4h59VCed6EW8Tql6iHDfZIabCJvg6wtbn5q6pyB2hZruI3b77Nudvq7NmvA==}
-    dev: false
 
   /object-assign@4.1.1:
     resolution: {integrity: sha512-rJgTQnkUnH1sFw8yT6VSU3zD3sWmu6sZhIseY8VX+GRu3P6F7Fu+JNDoXfklElbLJSnc3FUQHVe4cU5hj+BcUg==}
@@ -2346,19 +2249,6 @@ packages:
       picocolors: 1.0.0
       source-map-js: 1.0.2
 
-  /preact-render-to-string@5.2.3(preact@10.11.3):
-    resolution: {integrity: sha512-aPDxUn5o3GhWdtJtW0svRC2SS/l8D9MAgo2+AWml+BhDImb27ALf04Q2d+AHqUUOc6RdSXFIBVa2gxzgMKgtZA==}
-    peerDependencies:
-      preact: '>=10'
-    dependencies:
-      preact: 10.11.3
-      pretty-format: 3.8.0
-    dev: false
-
-  /preact@10.11.3:
-    resolution: {integrity: sha512-eY93IVpod/zG3uMF22Unl8h9KkrcKIRs2EGar8hwLZZDU1lkjph303V9HZBwufh2s736U6VXuhD109LYqPoffg==}
-    dev: false
-
   /prelude-ls@1.2.1:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
@@ -2379,10 +2269,6 @@ packages:
     engines: {node: '>=10.13.0'}
     hasBin: true
     dev: true
-
-  /pretty-format@3.8.0:
-    resolution: {integrity: sha512-WuxUnVtlWL1OfZFQFuqvnvs6MiAGk9UNsBostyBOB0Is9wb5uRESevA6rnl/rkksXaGX3GzZhPup5d6Vp1nFew==}
-    dev: false
 
   /prism-svelte@0.5.0:
     resolution: {integrity: sha512-db91Bf3pRGKDPz1lAqLFSJXeW13mulUJxhycysFpfXV5MIK7RgWWK2E5aPAa71s8TCzQUXxF5JOV42/iOs6QkA==}
@@ -3051,10 +2937,6 @@ packages:
       yaeti: 0.0.6
     transitivePeerDependencies:
       - supports-color
-    dev: false
-
-  /whatwg-fetch@3.6.19:
-    resolution: {integrity: sha512-d67JP4dHSbm2TrpFj8AbO8DnL1JXL5J9u0Kq2xW6d0TFDbCA3Muhdt8orXC22utleTVj7Prqt82baN6RBvnEgw==}
     dev: false
 
   /whatwg-url@5.0.0:

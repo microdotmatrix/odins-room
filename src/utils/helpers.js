@@ -1,4 +1,7 @@
 export const createUrl = (
+	/**
+	 * Helper for properly formatting a URL with query params as a string.
+	 */
 	/** @type {any} */ pathname,
 	/** @type {{ toString: () => any; }} */ params
 ) => {
@@ -9,6 +12,8 @@ export const createUrl = (
 };
 
 /**
+ * Function to parse a date object into a string and format it
+ * into something easier to read by humans.
  * @param {string | number | Date} input
  */
 export function formatDate(input) {
@@ -25,8 +30,8 @@ export async function sleep(ms = 500) {
 	return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-// keep number counters within a range
 /**
+ * Function to keep integer values passed into it within a certain range.
  * @param {number} value
  */
 export function clampRange(value, min = 0, max = 1) {
@@ -34,17 +39,7 @@ export function clampRange(value, min = 0, max = 1) {
 }
 
 /**
- * @param {number} number
- * @param {number} min
- * @param {number} max
- */
-export function clamp(number, min, max) {
-	if (number < min) return min;
-	if (number > max) return max;
-	return number;
-}
-
-/**
+ * Function to determine if an object exists in an array of objects.
  * @param {any[]} recs
  * @param {{ [x: string]: any; }} vals
  */
@@ -58,6 +53,7 @@ export function hasObject(recs, vals) {
 }
 
 /**
+ * Function to parse a string value and trim/replace unwanted characters into a slug.
  * @param {any} str
  */
 export function toSlug(str) {
@@ -73,8 +69,18 @@ export function toSlug(str) {
 	return s;
 }
 
-export const getRandomFloat = (/** @type {number} */ min, /** @type {number} */ max) =>
-	Math.random() * (max - min) + min;
-export const getRandomInt = (/** @type {number} */ min, /** @type {number} */ max) =>
-	Math.floor(Math.random() * (max - min + 1) + min);
+/**
+ * Functions for generating random integer and boolean values.
+ * @param {*} min 
+ * @param {*} max 
+ * @returns 
+ */
+export const getRandomFloat = (min, max) => Math.random() * (max - min) + min;
+/**
+ * Function for returning a random integer between preset min & max values.
+ * @param {*} min 
+ * @param {*} max 
+ * @returns 
+ */
+export const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
 export const getRandomBool = () => Math.random() >= 0.5;

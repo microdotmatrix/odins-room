@@ -3,6 +3,11 @@ import { browser } from '$app/environment';
 
 const reducedMotionQuery = '(prefers-reduced-motion: reduce)';
 
+/**
+ * Function for determining a user's browser preference for reduced motion.
+ * @returns {boolean}
+ */
+
 const getInitialMotionPreference = () => {
 	if (!browser) return false;
 	return window.matchMedia(reducedMotionQuery).matches;

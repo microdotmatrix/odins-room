@@ -4,6 +4,11 @@ import {
 	GOOGLE_CLIENT_SECRET,
 } from '$env/static/private';
 
+/**
+ * Function for fetching a bearer token from Google's OAuth API 
+ * to authenticate requests scoped to the Google Photos API endpoints 
+ * we will be using to fetch album and image data.
+ */
 export const getGoogleApiToken = async ({ fetch }) => {
 	const tokenResult = await fetch('https://www.googleapis.com/oauth2/v4/token', {
 		method: 'POST',
@@ -24,27 +29,42 @@ export const getGoogleApiToken = async ({ fetch }) => {
 	return `Bearer ${tokenData['access_token']}`;
 };
 
+/**
+ * Function for fetching album data from the Google Photos API
+ */
 export const getGoogleAlbums = async ({ fetch }, pageToken) => {
 	const result = await fetch(`https://photoslibrary.googleapis.com/v1/albums/?pageSize=50&pageToken=${pageToken}`);
 	return result.json();
 };
 
+/**
+ * Function for fetching album data for a specific album using the album ID.
+ */
 export const getGoogleAlbum = async ({ fetch }, albumId) => {
 	const result = await fetch(`https://photoslibrary.googleapis.com/v1/albums/${albumId}`);
 	return result.json();
 };
 
+/**
+ * Function for fetching all photos from the Google Photos API.
+ */
 export const getGoogleMediaItems = async ({ fetch }, pageSize, pageToken) => {
 	const result = await fetch(
 		`https://photoslibrary.googleapis.com/v1/mediaItems/?pageSize=${pageSize}&pageToken=${pageToken}`);
 	return result.json();
 };
 
+/**
+ * Function for fetching a specific photo using the media item ID.
+ */
 export const getGoogleMediaItem = async ({ fetch }, mediaItemId) => {
 	const result = await fetch(`https://photoslibrary.googleapis.com/v1/mediaItems/${mediaItemId}`);
 	return result.json();
 };
 
+/**
+ * Function for fetching all photos from a specific album using the album ID.
+ */
 export const getGoogleMediaItemsAlbum = async ({ fetch }, albumId, pageToken) => {
 	const result = await fetch(`https://photoslibrary.googleapis.com/v1/mediaItems:search`, {
 		method: 'POST',
@@ -56,6 +76,9 @@ export const getGoogleMediaItemsAlbum = async ({ fetch }, albumId, pageToken) =>
 	return result.json();
 };
 
+/**
+ * Fetch function to get album data in the server-side API route
+ */
 export const getAlbum = async ({ fetch, albumId }) => {
 	const album = await getGoogleAlbum({ fetch }, albumId);
 
@@ -66,6 +89,9 @@ export const getAlbum = async ({ fetch, albumId }) => {
 	return album;
 };
 
+/**
+ * Fetch function to get all albums in the server-side API route
+ */
 export const getAlbums = async ({ fetch }) => {
 	let nextPageToken = '';
 	let albums = [];
@@ -85,6 +111,9 @@ export const getAlbums = async ({ fetch }) => {
 	return albums;
 };
 
+/** 
+ * Fetch function to get all media items from an album in the server-side API route
+ */
 export const getMediaItems = async ({ fetch, albumId }) => {
 	let mediaItems = [];
 	let nextPageToken = '';
@@ -106,6 +135,9 @@ export const getMediaItems = async ({ fetch, albumId }) => {
 	return mediaItems;
 };
 
+/**
+ * Fetch function to get all media items in the server-side API route
+ */
 export const getAllMedia = async ({ fetch }) => {
 	let mediaItems = [];
 	let nextPageToken = '';
@@ -127,6 +159,9 @@ export const getAllMedia = async ({ fetch }) => {
 	return mediaItems;
 };
 
+/**
+ * Fetch function to get a specific image using the media item ID in the server-side API route
+ */
 export const getImage = async ({ fetch, photoId }) => {
 	const image = await getGoogleMediaItem({ fetch }, photoId);
 

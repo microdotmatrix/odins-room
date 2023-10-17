@@ -8,6 +8,10 @@
 
 	export let label = 'Dark mode';
 
+	/**
+	 * Using Svelte's crossfade transition function to animate a stylized
+	 * transition between light and dark mode icons.
+	 */
 	const [send, receive] = crossfade({
 		fallback(node, params) {
 			const style = getComputedStyle(node);
@@ -24,6 +28,11 @@
 		}
 	});
 
+	/**
+	 * Toggle function to switch between light and dark mode
+	 * Theme preference determined by a Svelte store object persisted in
+	 * browser's local storage and aware of the user's system preference.
+	 */
 	function toggle() {
 		const upcoming_theme = $theme.current === 'light' ? 'dark' : 'light';
 
