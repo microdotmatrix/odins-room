@@ -4,6 +4,7 @@
  * https://github.com/Rich-Harris/svelteflix/blob/main/src/lib/actions.ts
  */
 
+// @ts-ignore
 export function smoothload(node) {
   function load() {
     if (node.naturalWidth) return;

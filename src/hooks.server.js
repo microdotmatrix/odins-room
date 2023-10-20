@@ -1,3 +1,4 @@
+
 import { getGoogleApiToken } from '$lib/api/google';
 import { db } from '$lib/server/db';
 import { createSupabaseServerClient } from '@supabase/auth-helpers-sveltekit';
@@ -39,8 +40,11 @@ export async function handleFetch({ request, fetch }) {
 	if (request.url.startsWith('https://photoslibrary.googleapis.com/')) {
 		request.headers.set('Authorization', bearerToken)
 		console.log('token fetched', Date.now());
-		return fetch(request);
+		setInterval(async () => {
+			await getGoogleApiToken({ fetch });
+			console.log('token refreshed', Date.now());
+		}, 1000000);
 	}
-
+	
 	return fetch(request);
 }

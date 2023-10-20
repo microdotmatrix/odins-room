@@ -167,3 +167,8 @@ html {
     }
   }
 }
+
+.lg\:tooltip {
+  font-family: var(--font-amatic-sc);
+  letter-spacing: 0.2rem;
+}

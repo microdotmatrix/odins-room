@@ -1,7 +1,6 @@
 import { env } from '$env/dynamic/private';
 import { dev } from '$app/environment';
 
-
 /** @type {import('./$types').LayoutServerLoad} */
 export const load = async ({ url, locals: { getSession }}) => {
 	if (!dev) {

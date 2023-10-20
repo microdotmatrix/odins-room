@@ -183,6 +183,9 @@
 				letter-spacing: 0.25rem;
 				text-transform: uppercase;
 				transition: color 200ms ease;
+				&:hover {
+					color: theme('colors.accent-focus');
+				}
 				&::after {
 					content: "";
 					width: 4px;
@@ -215,7 +218,7 @@
 					transition: opacity 400ms ease-in, box-shadow 500ms ease;
 					view-transition-name: active-page;
 					@media (min-width: 1024px) {
-						top: 0.75rem;
+						top: 0.5rem;
 						left: 0.5rem;
 						width: var(--size-fluid-5);
 						height: var(--size-fluid-5);
