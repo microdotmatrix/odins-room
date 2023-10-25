@@ -3,7 +3,6 @@ import {
 	GOOGLE_CLIENT_ID,
 	GOOGLE_CLIENT_SECRET,
 } from '$env/static/private';
-import { PUBLIC_GOOGLE_REFRESH_TOKEN } from '$env/static/public';
 
 /**
  * Function for fetching a bearer token from Google's OAuth API 
