@@ -16,7 +16,7 @@ export const getGoogleApiToken = async ({ fetch }) => {
 		body: JSON.stringify({
 			client_id: GOOGLE_CLIENT_ID,
 			client_secret: GOOGLE_CLIENT_SECRET,
-			refresh_token: PUBLIC_GOOGLE_REFRESH_TOKEN,
+			refresh_token: '1//04bT0JD4S0JUUCgYIARAAGAQSNwF-L9IrkDhU5TzWVOobyWmaMCXrPs0hTnGP9pKU9N9mQGTbxdTHuBKBamSam35SV0PJP9gakig',
 			grant_type: 'refresh_token'
 		}),
 		headers: {
