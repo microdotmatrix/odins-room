@@ -73,6 +73,9 @@ devDependencies:
   prettier-plugin-svelte:
     specifier: ^2.8.1
     version: 2.10.0(prettier@2.8.8)(svelte@4.2.1)
+  prettier-plugin-tailwind:
+    specifier: ^2.2.12
+    version: 2.2.12(prettier@2.8.8)(tailwindcss@3.3.3)
   svelte:
     specifier: ^4.2.1
     version: 4.2.1
@@ -2264,6 +2267,17 @@ packages:
       svelte: 4.2.1
     dev: true
 
+  /prettier-plugin-tailwind@2.2.12(prettier@2.8.8)(tailwindcss@3.3.3):
+    resolution: {integrity: sha512-2SvZxpsYme0g5MrxGsKM43rx28f9AVlJrbwMnx4a03svCfsHwVGtcN6oN1YlClnEwZbquu3IhVAMcawEMKTjuA==}
+    peerDependencies:
+      prettier: ^2.0.0
+      tailwindcss: '*'
+    dependencies:
+      prettier: 2.8.8
+      tailwind-classes-sorter: 0.2.5
+      tailwindcss: 3.3.3
+    dev: true
+
   /prettier@2.8.8:
     resolution: {integrity: sha512-tdN8qQGvNjw4CHbY+XXk0JgCXn9QiF21a55rBe5LJAU+kDyC4WQn4+awm2Xfk2lQMk5fKup9XgzTZtGkjBdP9Q==}
     engines: {node: '>=10.13.0'}
@@ -2659,6 +2673,12 @@ packages:
     dependencies:
       '@sveltejs/kit': 1.25.1(svelte@4.2.1)(vite@4.3.8)
       svelte: 4.2.1
+    dev: true
+
+  /tailwind-classes-sorter@0.2.5:
+    resolution: {integrity: sha512-7S0AaDitt+Fjy9m3v0GrQ/KZrCswNDD25SSXX9U/HIB5h9lk0ImSkq/VVcnzu78cRQxR0fFfvHYFdfcqN3dCGA==}
+    dependencies:
+      find-up: 5.0.0
     dev: true
 
   /tailwindcss@3.3.3:

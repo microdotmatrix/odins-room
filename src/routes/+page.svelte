@@ -1,5 +1,5 @@
 <script>
-// @ts-nocheck
+	// @ts-nocheck
 
 	import { getRandomInt } from '$utils/helpers';
 	import { Login } from '$components/forms';
@@ -36,15 +36,27 @@
 					<h1 class="mb-4 tracking-wider">Odin's Room</h1>
 
 					<p class="text-lg tracking-wide text-base-content">
-						Welcome to Odin's Room. I'm <a href="https://github.com/microdotmatrix" class="font-bold" target="_blank">John</a>, aka "Dad". This website is a special project I made in order to share photos of my son, <span class="font-bold">Odin</span>, with friends and family.
+						Welcome to Odin's Room. I'm <a
+							href="https://github.com/microdotmatrix"
+							class="font-bold"
+							target="_blank">John</a
+						>, aka "Dad". This website is a special project I made in order to share photos of my
+						son, <span class="font-bold">Odin</span>, with friends and family.
 					</p>
 
 					<div class="my-auto space-y-8">
 						{#if !data.session}
 							<Login {form} />
 						{:else}
-							<p class="text-xl">Welcome back, <span class="font-bold">{data.session?.user?.email}</span></p>
-							<p>If you're reading this, you're logged in and can view all of Odin's photos on the <a class="font-semibold" href="/albums">albums</a> page.</p>
+							<p class="text-xl">
+								Welcome back, <span class="font-bold">{data.session?.user?.email}</span>
+							</p>
+							<p>
+								If you're reading this, you're logged in and can view all of Odin's photos on the <a
+									class="font-semibold"
+									href="/albums">albums</a
+								> page.
+							</p>
 							<button formaction="/logout" class="btn w-fit">
 								Logout <Icon.Logout class="w-5 h-5" />
 							</button>
