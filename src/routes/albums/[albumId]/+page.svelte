@@ -63,10 +63,7 @@
 	</div>
 	<div
 		class="gallery"
-		
 		bind:this={container}
-		in:fade={{ duration: 300 }}
-		out:fade={{ duration: 300 }}
 	>	
 		{#each images.slice(0, pageSize) as image (image.id)}
 			{@const href = `/albums/${albumId}/images/${image.id}`}
@@ -91,7 +88,7 @@
 						height={image.height}
 						width={image.width}
 						loading="lazy"
-						use:smoothload
+						
 					/>
 					<div class="absolute top-2 right-2">
 						<span class="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -179,18 +176,16 @@
 		--gap: 2px;
 		columns: 2;
 		column-gap: var(--gap);
-		& > * {
+		& > .gallery-cell {
 			margin-bottom: var(--gap);
-			& .gallery-image {
-				& img {
-					display: flex;
-					width: 100%;
-					height: 100%;
-					border-radius: 0;
-					border-radius: 0;
-					object-fit: cover;
-					object-position: center;
-				}
+			& .gallery-image img {
+				display: flex;
+				width: 100%;
+				height: 100%;
+				border-radius: 0;
+				border-radius: 0;
+				object-fit: cover;
+				object-position: center;
 			}
 		}
 		@media (min-width: 768px) {

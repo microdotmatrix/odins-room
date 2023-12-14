@@ -1,5 +1,5 @@
 
-import { getGoogleApiToken } from '$lib/api/google';
+import { GOOGLE_BEARER_TOKEN } from '$env/static/private';
 import { db } from '$lib/server/db';
 import { createSupabaseServerClient } from '@supabase/auth-helpers-sveltekit';
 
@@ -35,15 +35,11 @@ export async function handleFetch({ request, fetch }) {
 	 * instead of passing the bearer token with every request, we can use SvelteKit's
 	 * handleFetch hook to add the token to any fetch request made to the API endpoint url
 	 */
-	const bearerToken = await getGoogleApiToken({ fetch });
+	const bearerToken = GOOGLE_BEARER_TOKEN;
 	
 	if (request.url.startsWith('https://photoslibrary.googleapis.com/')) {
 		request.headers.set('Authorization', bearerToken)
 		console.log('token fetched', Date.now());
-		setInterval(async () => {
-			await getGoogleApiToken({ fetch });
-			console.log('token refreshed', Date.now());
-		}, 1000000);
 	}
 	
 	return fetch(request);

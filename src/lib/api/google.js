@@ -1,33 +1,34 @@
 // @ts-nocheck
-import {
-	GOOGLE_CLIENT_ID,
-	GOOGLE_CLIENT_SECRET,
-} from '$env/static/private';
+// import {
+// 	GOOGLE_CLIENT_ID,
+// 	GOOGLE_CLIENT_SECRET,
+// 	GOOGLE_REFRESH_TOKEN
+// } from '$env/static/private';
 
 /**
  * Function for fetching a bearer token from Google's OAuth API 
  * to authenticate requests scoped to the Google Photos API endpoints 
  * we will be using to fetch album and image data.
  */
-export const getGoogleApiToken = async ({ fetch }) => {
-	const tokenResult = await fetch('https://www.googleapis.com/oauth2/v4/token', {
-		method: 'POST',
-		body: JSON.stringify({
-			client_id: GOOGLE_CLIENT_ID,
-			client_secret: GOOGLE_CLIENT_SECRET,
-			refresh_token: '1//04ov-BoJk-JI2CgYIARAAGAQSNwF-L9Irycp5iZu_U8e23lhha_BldnJFTl3FC3QSAyJlwUSAq8W5kT1PDJ7F_tET-32j95ZKoiY',
-			grant_type: 'refresh_token'
-		}),
-		headers: {
-			'Content-Type': 'application/json'
-		}
-	});
+// export const getGoogleApiToken = async ({ fetch }) => {
+// 	const tokenResult = await fetch('https://www.googleapis.com/oauth2/v4/token', {
+// 		method: 'POST',
+// 		body: JSON.stringify({
+// 			client_id: GOOGLE_CLIENT_ID,
+// 			client_secret: GOOGLE_CLIENT_SECRET,
+// 			refresh_token: GOOGLE_REFRESH_TOKEN,
+// 			grant_type: 'refresh_token'
+// 		}),
+// 		headers: {
+// 			'Content-Type': 'application/json'
+// 		}
+// 	});
 
-	const tokenData = await tokenResult.json();
-	console.log(tokenData);
+// 	const tokenData = await tokenResult.json();
+// 	console.log(tokenData);
 	
-	return `Bearer ${tokenData['access_token']}`;
-};
+// 	return `Bearer ${tokenData['access_token']}`;
+// };
 
 /**
  * Function for fetching album data from the Google Photos API
